@@ -1,0 +1,1 @@
+{"result":{"text":"v a r 2 c o n t a i n s t h e v a l u e 13. space less than divided by s p a n greater than less than s p a n s t y l e equals \" c o l o r colon r g b left parenthesis 34 comma 34 comma 34 right parenthesis semicolon \" greater than"},"status":"ok"}

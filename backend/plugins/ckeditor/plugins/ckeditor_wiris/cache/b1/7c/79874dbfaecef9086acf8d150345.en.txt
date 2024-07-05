@@ -1,0 +1,1 @@
+{"result":{"text":"<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>x</mi><mo>=</mo><mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo><mo>&#x221A;</mo><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></mrow><mo>/</mo><mrow><mn>2</mn><mi>a</mi></mrow></math>"},"status":"ok"}

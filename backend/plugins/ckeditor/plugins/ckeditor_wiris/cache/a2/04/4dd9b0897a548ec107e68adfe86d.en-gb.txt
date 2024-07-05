@@ -1,0 +1,1 @@
+{"result":{"text":"square root of 2 plus square root of 3 right parenthesis cubed equals 8"},"status":"ok"}

@@ -1,0 +1,1 @@
+<?php if(!empty($page['description'])){ echo $page['description'];  }  ?>

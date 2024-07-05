@@ -1,0 +1,1 @@
+{"result":{"text":"1 divided by 5"},"status":"ok"}

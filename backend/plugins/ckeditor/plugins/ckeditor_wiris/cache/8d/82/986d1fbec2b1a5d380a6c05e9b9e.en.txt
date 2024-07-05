@@ -1,0 +1,1 @@
+{"result":{"text":"23 square root of 44 rightwards arrow 11 end root"},"status":"ok"}

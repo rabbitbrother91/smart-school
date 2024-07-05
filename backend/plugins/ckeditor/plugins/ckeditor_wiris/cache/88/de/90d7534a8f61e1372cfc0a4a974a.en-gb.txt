@@ -1,0 +1,1 @@
+{"result":{"text":"square root of 1 to the power of 4 plus 1 subscript 52 end exponent end root"},"status":"ok"}

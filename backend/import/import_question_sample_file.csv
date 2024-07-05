@@ -1,0 +1,5 @@
+"question type Like (singlechoice,multichoice,true_false,descriptive)","level like (high,low,medium)",question,opt_a,opt_b,opt_c,opt_d,opt_e,"correct Like (opt_a,opt_b,opt_c,opt_d)
+for true false it will true or false
+for multichoice [""opt_b"",""opt_c""]  "
+true_false,high,question testttt 1,,,,,,true
+descriptive,high,question testttt 2,,,,,,

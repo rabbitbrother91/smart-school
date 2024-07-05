@@ -1,0 +1,1 @@
+{"result":{"text":"stack yields uuu with rightwards arrow with rightwards arrow over leftwards arrow rightwards arrow with rightwards arrow over leftwards arrow with blank below below below on top"},"status":"ok"}

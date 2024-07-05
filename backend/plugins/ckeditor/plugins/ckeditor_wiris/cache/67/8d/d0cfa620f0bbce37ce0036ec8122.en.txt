@@ -1,0 +1,1 @@
+{"result":{"text":"x equals negative b plus-or-minus √ b squared minus 4 a c divided by 2 a"},"status":"ok"}

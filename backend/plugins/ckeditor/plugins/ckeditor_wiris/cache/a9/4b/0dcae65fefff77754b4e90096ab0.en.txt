@@ -1,0 +1,1 @@
+{"result":{"text":"50 over 100 space equals space 500 over 1000"},"status":"ok"}

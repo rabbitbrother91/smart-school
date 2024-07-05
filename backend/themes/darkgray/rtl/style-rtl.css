@@ -1,0 +1,230 @@
+body {
+    padding: 0;
+    margin:0;
+   font-family: 'Roboto', sans-serif;
+  background: #fff;
+  text-align:right;
+  direction:rtl
+}
+a{-webkit-transition: all 1s ease 0s;
+    -moz-transition: all 1s ease 0s;
+    -o-transition: all 1s ease 0s;
+    transition: all 1s ease 0s;}
+a:hover, a:active, a:focus {
+    outline: none;
+    text-decoration: none;
+    color: #72afd2;
+}
+ul, ol {direction: rtl;padding-right: 15px;}
+
+.mt0{margin-top: 0 !important}
+.mt10{margin-top:10px;}
+.relative{position: relative; margin-bottom: 10px;}
+.pt10{padding-top: 10px;}
+.pt20{padding-top: 20px;}
+.pb20{padding-bottom: 20px;}
+.around10{padding: 10px;}
+.spaceb10{padding-bottom: 10px;}
+.spaceb40{padding-bottom: 40px;}
+.spacet40{padding-top: 40px;}
+.spaceb50{padding-bottom: 50px;}
+.spacet50{padding-top: 50px;}
+.bg-gray{background:#f5f5f5;}
+.logo{padding:0 0px 0 15px;}
+.logo img{transition: all 1s ease 0s;}
+.navbar{border-radius: 0;
+    padding-top: 0px;
+    min-height: 100%;
+    margin-bottom: 0;}
+
+.navbar-default {
+    background: transparent;
+    border: none;
+    position: absolute;
+    width: 100%;
+}
+header{width: 100%; clear: both; padding-top: 20px;padding-bottom: 25px;
+    position: relative; z-index: 99; width: 100%; background: #151414;
+box-sizing: border-box;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;}
+
+
+ #alert{transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+    -ms-transition-duration: 0.1s;}
+.affix#alert{position: fixed;
+    top: 0px;
+    z-index:999;
+    width: 100%;
+    
+} 
+.affix#alert header{background:#151414; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.54);
+    padding-top:10px;
+ }
+ .affix#alert .logo img{padding-top:0px;transition: all 1s ease 0s;} 
+@media (min-width: 768px) {
+.navbar-nav>li>a {margin-top: 10px;}
+}
+
+
+.owl-carousel.owl-loaded{direction: ltr;}
+.head-title{text-align: right;}
+.staff-content h3{text-align: center;}
+.countdown_bg h3 {text-align: center;}
+.panel-heading .accordion-toggle:after {padding-left: 5px;}
+.whychooses h3{color: #000; text-align: center;}
+.whychooses p {text-align: center;}
+.blue-box1 {text-align: right;}
+.contact-item {text-align: right;}
+.scrollToTop {right:auto; left:20px;}
+.service-box .service-box-icon {left: auto;right: 0;}
+.service-box .service-box-content {position: relative;padding-right: 60px; padding-left: 0;}
+.service-box:first-child{border:0;}
+.service-box:last-child {border-right: 1px solid rgb(181, 99, 9);}
+
+.top-right {float: left;}
+.top-right li i{padding-right: 0em;padding-left: 0.5em;}
+.fo-title:after {left: auto;right: 0;}
+.f1-list li a:after {left: auto;right: 0;}
+.complain i {left: auto;right: 15px;}
+.complain {padding-left: 0;padding-right: 55px;}
+.cleft {float: right;}
+.cright {
+    float: right;
+    padding-right: 20px;
+    border-left:0;
+    border-right: 2px solid #302f2f;
+    min-height: 60px;
+}
+.head-title:after {left: auto;margin: 20px 00;right: 0;}
+.company-social {padding-right: 0;}
+.dropdown-menu{left: auto; right: 0}
+.dropdown-menu>li>a {text-align: right;}
+@media(max-width: 767px){
+.top-right {float: none;}
+.navbar-toggle{margin-top: 0 !important; margin-right:0 !important;}
+}
+
+
+
+.fullwidth { width: 100vw;position: relative;right: 50%;
+margin-right: -50vw;margin-left: auto;left: 0;}
+
+/*safari Browser*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  ::i-block-chrome, .fullwidth {width: 102em;margin-left: auto;margin-right: -51em;left: 0;right: 50%;}
+  ::i-block-chrome, .galleryfancy .content-overlay{height: 100rem}
+  ::i-block-chrome, .gallheight{height: 250px; overflow:hidden;}
+}
+.fancy-lightbox-nav-overlay a:last-child span {
+    text-align: left;
+}
+.catpcha{cursor:pointer; padding-right: 10px; padding-left: 0;}
+@media(max-width:767px){
+   #captcha_image img{margin-bottom:5px;} 
+}
+.course-right {
+    float: left !important;
+}
+.refinetext i {
+    padding-right: 0;
+    padding-left: 5px;
+}
+.listbtnactive i {
+    padding-right: 0px;
+    padding-left: 5px;
+}
+.sidecourse-title i {
+    float: left !important;
+    padding-top: 1px !important;
+}
+.menuinlinemobile .dropdown-menu {
+    right: auto;
+    left: 0;
+}
+.catecheck input[type="checkbox"], .catecheck input[type="radio"] {
+    left: 9000px;
+    right: auto !important;
+}
+.priceblock {
+    align-items: start !important;
+}
+.catecheck .pull-right {
+    float: left !important;
+}
+.catefilterscroll {
+    padding-right: 0 !important;}
+.resettext {
+    float: left !important;
+} 
+
+@media (min-width: 320px) and (max-width: 540px) {
+   .menuinlinemobile .dropdown-menu {
+      right: auto !important;
+   } 
+}
+@media(min-width:768px){
+    .menuinlinemobile .dropdown-menu {
+        right: auto !important;
+        left: 0 !important;
+    }
+    .cart-wrapper::after{left:6px; right:auto !important}
+}
+
+.shop-chart i {
+    padding-left: 0 !important;
+    padding-right: 1rem !important;
+}
+.carttotal-price span{float: left !important}
+.cart-course-wrapper .mainright{padding-right: 5px;}
+.cart-course-wrapper{padding-right: 0 !important}
+.cart-course-wrapper .removebtn {text-align: left !important;}
+.ratin-gaverage {text-align: right !important;}
+.bar-container li > div:not(.progress) {
+    padding-left: 0 !important;
+    padding-right: 15px;
+}
+.lessons li i {
+    padding-left: 5px;
+    padding-right: 0 !important;
+}
+.coursetitle span {
+    float: left !important;
+    margin-right: 0 !important;
+}
+.panelh3 i {
+    margin-left: 5px;
+    margin-right: 0 !important;
+}
+.introlist li:after {
+    right: 10px;
+    left: auto !important;
+}
+.filterright p.text-danger.pt-5 {
+    text-align: center;
+}
+@media (min-width: 768px) {
+    .form-horizontal .control-label {
+        text-align: left !important;
+    }
+}
+.float-rtl-left{float: left}
+.statusimg,
+.statusright {float: left;}
+.statusimg li+li {
+    padding-right: 20px;
+    padding-left: 0;
+}
+@media (min-width: 992px) {
+  .text-lg-right {
+    text-align: left;
+  }  
+}
+
+.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top {
+    right: auto;
+}

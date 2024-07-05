@@ -1,0 +1,34 @@
+{
+    "name": "midtrans/midtrans-php",
+    "description": "PHP Wrapper for Midtrans Payment API.",
+    "homepage": "https://midtrans.com",
+    "version": "2.2.0",
+    "type": "library",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Andri Setiawan",
+            "email": "andri.setiawan@veritrans.co.id"
+        },
+        {
+            "name": "Alvin Litani",
+            "email": "alvin.litani@veritrans.co.id"
+        },
+        {
+            "name": "Ismail Faruqi",
+            "email": "ismail.faruqi@veritrans.co.id"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.7.*",
+        "psy/psysh": "0.4.*"
+    },
+    "autoload": {
+        "psr-4": { 
+            "Midtrans\\": "Midtrans/"
+        }
+    }
+}

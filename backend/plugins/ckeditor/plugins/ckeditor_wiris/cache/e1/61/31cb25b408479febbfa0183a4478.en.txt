@@ -1,0 +1,1 @@
+{"result":{"text":"x equals fraction numerator negative b plus-or-minus square root of b squared minus 4 a c end root over denominator 2 a end fraction"},"status":"ok"}

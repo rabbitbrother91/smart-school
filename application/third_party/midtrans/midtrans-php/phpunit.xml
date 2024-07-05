@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="test_bootstrap.php" 
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false"
+>
+    <testsuites>
+        <testsuite name="Unit Test">
+            <directory>./tests/</directory>
+            <exclude>./tests/integration</exclude>
+        </testsuite>
+        <testsuite name="All">
+            <directory>./tests/</directory>
+        </testsuite>
+        <testsuite name="Integration Test">
+            <directory>./tests/integration</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="SERVER_KEY" value="SB-Mid-server-GwUP_WGbJPXsDzsNEBRs8IYA"/>
+        <env name="CLIENT_KEY" value="SB-Mid-client-61XuGAwQ8Bj8LxSS"/>
+    </php>
+</phpunit>

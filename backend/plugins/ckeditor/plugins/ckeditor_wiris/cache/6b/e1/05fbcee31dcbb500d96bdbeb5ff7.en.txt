@@ -1,0 +1,1 @@
+{"result":{"text":"25 over 100 square root of 500 minus 600 end root"},"status":"ok"}

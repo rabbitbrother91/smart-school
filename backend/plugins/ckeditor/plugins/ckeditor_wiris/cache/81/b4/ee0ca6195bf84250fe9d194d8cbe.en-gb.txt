@@ -1,0 +1,1 @@
+{"result":{"text":"square root of 2 plus 70 percent sign plus 200 X 10 to the power of negative 2 end exponent"},"status":"ok"}

@@ -1,0 +1,45 @@
+*{ margin:0; padding: 0;}
+table{ font-family: 'arial'; margin:0; padding: 0;font-size: 12px; color: #000;}
+.tc-container{width: 100%;position: relative; text-align: center;margin-bottom:60px;padding-bottom: 10px;}
+.tcmybg {
+    background: top center;
+    background-size: contain;
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    width: 160px;
+    height: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    right: 0;
+    opacity: 0.10;
+}
+
+.studentmain{background: #efefef;width: 100%; margin-bottom: 30px;}
+.studenttop img{width:30px;vertical-align: top;}
+.studenttop{
+    background: #453278;
+    padding:2px;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+.sttext1{font-size: 24px;font-weight: bold;line-height: 30px;}
+.stgray{background: #efefef;padding-top: 5px; padding-bottom: 10px;}
+.staddress{margin-bottom: 0; padding-top: 2px;}
+.stdivider{border-bottom: 2px solid #000;margin-top: 5px; margin-bottom: 5px;}
+.stlist{padding: 0; margin:0; list-style: none;}
+.stlist li{text-align: left;display: inline-block;width: 100%;padding: 0px 5px;}
+.stlist li span{width:65%;float: right;}
+.stimg{width: 80px;height: auto;}
+.stimg img{width: 100%;height: auto;border-radius: 2px;display: block;}
+.staround{padding:3px 10px 3px 0;position: relative;overflow: hidden;}
+.staround2{position: relative; z-index: 9;}
+.stbottom{background: #453278;height: 20px;width: 100%;clear: both;margin-bottom: 5px;}         
+.principal{margin-top: -40px;margin-right:10px; float:right;}
+.stred{color: #000;}
+.spanlr{padding-left: 5px; padding-right: 5px;}
+.cardleft{width: 20%;float: left;}
+.cardright{width: 77%;float: right;}
+.width32{width: 32.75%; padding: 3px; float: left;}

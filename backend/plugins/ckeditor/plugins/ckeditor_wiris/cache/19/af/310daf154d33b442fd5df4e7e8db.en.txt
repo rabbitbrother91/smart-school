@@ -1,0 +1,1 @@
+{"result":{"text":"d d square root of 123"},"status":"ok"}

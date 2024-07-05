@@ -1,0 +1,1 @@
+{"result":{"text":"1 fifth"},"status":"ok"}

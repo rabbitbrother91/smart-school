@@ -1,0 +1,1 @@
+{"result":{"text":"square root of 1 divided by 4 end root"},"status":"ok"}

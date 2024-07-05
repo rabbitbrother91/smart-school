@@ -1,0 +1,1 @@
+{"result":{"text":"2 straight H subscript 2 open parentheses straight g close parentheses plus straight O subscript 2 open parentheses straight g close parentheses rightwards harpoon over leftwards harpoon 2 straight H subscript 2 straight O open parentheses straight l close parentheses"},"status":"ok"}

@@ -1,0 +1,1 @@
+{"result":{"text":"v a r 2 c o n t a i n s t h e v a l u e 13. space"},"status":"ok"}

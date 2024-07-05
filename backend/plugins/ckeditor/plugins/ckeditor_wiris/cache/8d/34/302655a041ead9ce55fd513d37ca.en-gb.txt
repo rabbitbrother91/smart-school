@@ -1,0 +1,1 @@
+{"result":{"text":"root index blank of open parentheses fraction numerator begin display style fraction numerator open vertical bar open square brackets 5 cross times 0 close square brackets close vertical bar over denominator 2 end fraction end style over denominator 5 end fraction close parentheses end root"},"status":"ok"}

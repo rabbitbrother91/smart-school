@@ -1,0 +1,1 @@
+{"result":{"text":"root index d f d f of 1 divided by 2 end root"},"status":"ok"}

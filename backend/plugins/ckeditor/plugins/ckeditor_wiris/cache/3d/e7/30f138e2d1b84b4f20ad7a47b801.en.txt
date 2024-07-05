@@ -1,0 +1,1 @@
+{"result":{"text":"4 squared"},"status":"ok"}

@@ -1,0 +1,1 @@
+{"result":{"text":"square root of 2 plus capital omega to the power of 1 divided by 2 plus 0.00 right square bracket equals 9"},"status":"ok"}

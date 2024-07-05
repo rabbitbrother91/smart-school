@@ -1,0 +1,21 @@
+{
+    "name": "smartschool/qdocs",
+    "description": "Smart School",
+    "license": "Smart School Qdocs",
+    "authors": [
+        {
+            "name": "smartschool",
+            "email": "support@qdocs.in"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+           "mpdf/mpdf":"^7.1.0",
+           "google/apiclient": "2.7",
+           "league/omnipay": "^3.1@dev",
+           "omnipay/paypal": "^3.0@dev",
+           "omnipay/stripe": "^3.1@dev",
+           "sonata-project/google-authenticator": "^2.2"         
+
+    }
+}
