@@ -10,17 +10,21 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
             <div class="col-md-12">
                 <div class="box box-info" style="padding:5px;">
                     <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-search"></i> <?php echo $this->lang->line('select_criteria'); ?></h3>
+                        <h3 class="box-title"><i
+                                    class="fa fa-search"></i> <?php echo $this->lang->line('select_criteria'); ?></h3>
                         <div class="pull-right box-tools">
                             <a href="<?php echo site_url('student/exportformat') ?>">
-                                <button class="btn btn-primary btn-sm"><i class="fa fa-download"></i> <?php echo $this->lang->line('download_sample_import_file'); ?></button>
+                                <button class="btn btn-primary btn-sm"><i
+                                            class="fa fa-download"></i> <?php echo $this->lang->line('download_sample_import_file'); ?>
+                                </button>
                             </a>
                         </div>
                     </div>
                     <div class="box-body">
                         <?php if ($this->session->flashdata('msg')) {
-    ?> <div>  <?php echo $this->session->flashdata('msg');
-    $this->session->unset_userdata('msg'); ?> </div> <?php }?>
+                            ?>
+                            <div>  <?php echo $this->session->flashdata('msg');
+                                $this->session->unset_userdata('msg'); ?> </div> <?php } ?>
                         <br/>
                         1. <?php echo $this->lang->line('import_student_step1'); ?>
                       <br/>
@@ -40,7 +44,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         8. <?php echo $this->lang->line('import_student_step8'); ?><br/>
 
                         9. <?php echo $this->lang->line('import_student_step9'); ?>
-                        <hr/></div>
+                        <hr/>
+                    </div>
                     <div class="box-body table-responsive">
                         <table class="table table-striped table-bordered table-hover" id="sampledata">
                             <thead>
@@ -120,8 +125,9 @@ foreach ($fields as $key => $value) {
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
-                                        <select autofocus="" id="class_id" name="class_id" class="form-control" >
+                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small
+                                                class="req"> *</small>
+                                        <select autofocus="" id="class_id" name="class_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                             <?php
 foreach ($classlist as $class) {
@@ -133,11 +139,13 @@ $count++;
 ?>
                                         </select>
                                         <span class="text-danger"><?php echo form_error('class_id'); ?></span>
-                                    </div></div>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
-                                        <select  id="section_id" name="section_id" class="form-control" >
+                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small
+                                                class="req"> *</small>
+                                        <select id="section_id" name="section_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                         </select>
                                         <span class="text-danger"><?php echo form_error('section_id'); ?></span>
@@ -145,12 +153,16 @@ $count++;
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleInputFile"><?php echo $this->lang->line('select_csv_file'); ?></label><small class="req"> *</small>
-                                        <div><input class="filestyle form-control" type='file' name='file' id="file" size='20' />
+                                        <label for="exampleInputFile"><?php echo $this->lang->line('select_csv_file'); ?></label><small
+                                                class="req"> *</small>
+                                        <div><input class="filestyle form-control" type='file' name='file' id="file"
+                                                    size='20'/>
                                             <span class="text-danger"><?php echo form_error('file'); ?></span></div>
-                                    </div></div>
+                                    </div>
+                                </div>
                                 <div class="col-md-6 pt20">
-                                    <button type="submit" class="btn btn-info pull-right"><?php echo $this->lang->line('import_student'); ?></button>
+                                    <button type="submit"
+                                            class="btn btn-info pull-right"><?php echo $this->lang->line('import_student'); ?></button>
                                 </div>
 
                             </div>
@@ -159,8 +171,41 @@ $count++;
                     <div>
                     </div>
                 </div>
-                </section>
-            </div>
+                <div class="box box-info" style="padding:5px;">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i
+                                    class="fa fa-search"></i> <?php echo $this->lang->line('import_from_xlsx'); ?></h3>
+                        <hr/>
+
+                        <form action="<?php echo site_url('student/import_from_xlsx') ?>" id="employeeform2"
+                              name="employeeform2"
+                              method="post" enctype="multipart/form-data">
+                            <div class="box-body">
+                                <?php echo $this->customlib->getCSRF(); ?>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputFile"><?php echo $this->lang->line('select_xlsx_file'); ?></label><small
+                                                    class="req"> *</small>
+                                            <div><input class="filestyle form-control" type='file' name='file' id="file"
+                                                        size='20'/>
+                                                <span class="text-danger"><?php echo form_error('file'); ?></span></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 pt20">
+                                        <button type="submit"
+                                                class="btn btn-info pull-right"><?php echo $this->lang->line('import_student'); ?></button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+    </section>
+</div>
 
             <script type="text/javascript">
                 function getSectionByClass(class_id, section_id) {

@@ -1047,6 +1047,7 @@ $lang['import_staff'] ="Import Staff";
 $lang['import_staff_step1'] ="Tua CSV notitia in forma infra debet. Prima linea fasciculi tui CSV columnae capitis sicut in tabula exemplo esse debet. Fac etiam tabellam tuam utf-8 esse ad vitandas difficultates descriptas superfluas.";
 $lang['import_staff_step2'] ="Si columnam quam importare conaris est date fac formatam in forma Ymd (2018-06-06).";
 $lang['import_student'] ="Import Student";
+$lang['report_jasper'] ="Report";
 $lang['import_student_step1'] ="Tua CSV notitia in forma infra debet. Prima linea fasciculi tui CSV columnae capitis sicut in tabula exemplo esse debet. Fac etiam tabellam tuam utf-8 esse ad vitandas difficultates descriptas superfluas.";
 $lang['import_student_step2'] ="Si columnam quam importare conaris est date fac formatam in forma Ymd (2018-06-06).";
 $lang['import_student_step3'] ="Duplicata Admissio Number (unicus) ordines importari non possunt.";
