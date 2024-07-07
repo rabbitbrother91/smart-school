@@ -2056,25 +2056,34 @@ class Report extends Admin_Controller
 
         $srch_type = $this->input->post('search_type');
 
-        if ($srch_type == 'search_filter') {
+        $result = $this->student_helper->get_students_validation($class_id, $section_id, $category_id, $gender, $rte,  'search_filter');
 
-            $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required|xss_clean');
-            if ($this->form_validation->run() == true) {
 
-                $params = array('srch_type' => $srch_type, 'class_id' => $class_id, 'section_id' => $section_id, 'category_id' => $category_id, 'gender' => $gender, 'rte' => $rte);
-                $array  = array('status' => 1, 'error' => '', 'params' => $params);
-                echo json_encode($array);
-            } else {
+        $action =  $this->input->post('action');
+        //if pdf generate request, redirect after making from html view and data
+        if ($action === 'pdf') {
+            // Using print_r
+            $result     = $this->student_model->searchdatatableByClassSectionCategoryGenderRte($class, $section, $category_id, $gender, $rte);
+            $resultlist = json_decode($result);
+            // Fetch data from the database
+            $data['students'] = $resultlist->data;
+            $data['class'] =  $resultlist->data[0]->class;
+            $data['section'] = $resultlist->data[0] -> section;
 
-                $error             = array();
-                $error['class_id'] = form_error('class_id');
-                $array             = array('status' => 0, 'error' => $error);
-                echo json_encode($array);
-            }
-        } else {
-            $params = array('srch_type' => 'search_full', 'class_id' => $class_id, 'section_id' => $section_id);
-            $array  = array('status' => 1, 'error' => '', 'params' => $params);
-            echo json_encode($array);
+            $this->load->library('tcpdf_gen');
+
+            // Load the view file
+            $html = $this->load->view('reports/report_view', $data, true);
+
+            // Set the HTML content
+            $this->tcpdf->writeHTML($html, true, false, true, false, '');
+
+            // Output the generated PDF (D = download, I = inline view)
+            $this->tcpdf->Output('student_report.pdf', 'I');
+        } 
+        // send valication result
+        else {
+            echo json_encode($result);
         }
     }
 

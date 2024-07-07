@@ -1,7 +1,11 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            <i class="fa fa-line-chart"></i> <?php //echo $this->lang->line('reports'); ?> <small> <?php //echo $this->lang->line('filter_by_name1'); ?></small></h1>
+            <i class="fa fa-line-chart"></i> <?php //echo $this->lang->line('reports'); 
+                                                ?>
+            <small> <?php //echo $this->lang->line('filter_by_name1'); 
+                    ?></small>
+        </h1>
     </section>
     <!-- Main content -->
     <section class="content" >
@@ -19,8 +23,9 @@
                                 <?php echo $this->customlib->getCSRF(); ?>
                                 <div class="col-sm-6 col-md-3">
                                     <div class="form-group">
-                                        <label><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
-                                        <select autofocus="" id="class_id" name="class_id" class="form-control" >
+                                        <label><?php echo $this->lang->line('class'); ?></label><small class="req">
+                                            *</small>
+                                        <select autofocus="" id="class_id" name="class_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                             <?php
 foreach ($classlist as $class) {
@@ -111,20 +116,25 @@ $count++;
                                 <?php }?>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button type="submit" name="search" value="search_filter" class="btn btn-primary btn-sm checkbox-toggle pull-right"><i class="fa fa-search"></i> <?php echo $this->lang->line('search'); ?></button>
+                                        <button type="submit" name="action" value="search" class="btn btn-primary btn-sm checkbox-toggle pull-right"><i class="fa fa-search"></i> <?php echo $this->lang->line('search'); ?>
+                                        </button>
+                                        <button type="submit" name="action" value="pdf" class="btn btn-primary btn-sm checkbox-toggle pull-right">
+                                            <?php echo $this->lang->line('report_jasper'); ?>
+                                        </button>
                                     </div>
                                 </div>
                             </div><!--./row-->
                         </form>
                     </div><!--./box-body-->
-                        <div class="">
-                            <div class="box-header ptbnull"></div>
-                            <div class="box-header ptbnull">
-                                <h3 class="box-title titlefix"><i class="fa fa-users"></i> <?php echo form_error('student'); ?> <?php echo $this->lang->line('student_report'); ?></h3>
-                            </div>
-                            <div class="box-body table-responsive">
-                                    <div class="download_label"> <?php echo $this->lang->line('student_report'); ?></div>
-                            <div >
+                    <div class="">
+                        <div class="box-header ptbnull"></div>
+                        <div class="box-header ptbnull">
+                            <h3 class="box-title titlefix"><i class="fa fa-users"></i> <?php echo form_error('student'); ?> <?php echo $this->lang->line('student_report'); ?>
+                            </h3>
+                        </div>
+                        <div class="box-body table-responsive">
+                            <div class="download_label"> <?php echo $this->lang->line('student_report'); ?></div>
+                            <div>
                                 <table class="table table-striped table-bordered table-hover student-list" data-export-title="<?php echo $this->lang->line('student_report'); ?>">
                                     <thead>
                                         <tr>
@@ -138,16 +148,19 @@ $count++;
                                             <th><?php echo $this->lang->line('gender'); ?></th>
                                             <?php if ($sch_setting->category) {?>
                                                 <th><?php echo $this->lang->line('category'); ?></th>
-                                            <?php }if ($sch_setting->mobile_no) {?>
+                                            <?php }
+                                            if ($sch_setting->mobile_no) { ?>
                                                 <th><?php echo $this->lang->line('mobile_number'); ?></th>
                                             <?php
 }
 if ($sch_setting->local_identification_no) {
     ?>
                                                 <th><?php echo $this->lang->line('local_identification_number'); ?></th>
-                                            <?php }if ($sch_setting->national_identification_no) {?>
+                                            <?php }
+                                            if ($sch_setting->national_identification_no) { ?>
                                                 <th><?php echo $this->lang->line('national_identification_number'); ?></th>
-                                            <?php }if ($sch_setting->rte) {?>
+                                            <?php }
+                                            if ($sch_setting->rte) { ?>
                                                 <th><?php echo $this->lang->line('rte'); ?></th>
                                             <?php }?>
                                         </tr>
@@ -173,11 +186,12 @@ if ($sch_setting->local_identification_no) {
             $.ajax({
                 type: "GET",
                 url: base_url + "sections/getByClass",
-                data: {'class_id': class_id},
+                data: {
+                    'class_id': class_id
+                },
                 dataType: "json",
-                success: function (data) {
-                    $.each(data, function (i, obj)
-                    {
+                success: function(data) {
+                    $.each(data, function(i, obj) {
                         var sel = "";
                         if (section_id == obj.section_id) {
                             sel = "selected";
@@ -202,11 +216,12 @@ if ($sch_setting->local_identification_no) {
             $.ajax({
                 type: "GET",
                 url: base_url + "sections/getByClass",
-                data: {'class_id': class_id},
+                data: {
+                    'class_id': class_id
+                },
                 dataType: "json",
-                success: function (data) {
-                    $.each(data, function (i, obj)
-                    {
+                success: function(data) {
+                    $.each(data, function(i, obj) {
                         div_data += "<option value=" + obj.section_id + ">" + obj.section + "</option>";
                     });
                     $('#section_id').append(div_data);
@@ -223,23 +238,28 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-$(document).ready(function(){
-$(document).on('submit','#reportform',function(e){
-    e.preventDefault(); // avoid to execute the actual submit of the form.
-    var $this = $(this).find("button[type=submit]:focus");
-    var form = $(this);
-    var url = form.attr('action');
-    var form_data = form.serializeArray();
-    form_data.push({name: 'search_type', value: $this.attr('value')});
+    $(document).ready(function() {
+        $(document).on('submit', '#reportform', function(e) {
+            var $this = $(this).find("button[type=submit]:focus");
+            var form = $(this);
+            var url = form.attr('action');
+            var form_data = form.serializeArray();
+            form_data.push({
+                name: 'search_type',
+                value: $this.attr('value')
+            });
 
-    $.ajax({
-           url: url,
-           type: "POST",
-           dataType:'JSON',
-           data: form_data, // serializes the form's elements.
-              beforeSend: function () {
-                $('[id^=error]').html("");
-                $this.button('loading');
+
+            if ($this.attr('value') !== 'pdf') {
+                e.preventDefault(); // avoid to execute the actual submit of the form.
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    dataType: 'JSON',
+                    data: form_data, // serializes the form's elements.
+                    beforeSend: function() {
+                        $('[id^=error]').html("");
+                        $this.button('loading');
 
                },
               success: function(response) { // your success handler
@@ -250,16 +270,18 @@ $(document).on('submit','#reportform',function(e){
                     });
                 }else{
 
-                   initDatatable('student-list','report/dtstudentreportlist',response.params,[],100);
-                }
-              },
-             error: function() { // your error handler
-                 $this.button('reset');
-             },
-             complete: function() {
-             $this.button('reset');
-             }
-         });
+                            initDatatable('student-list', 'report/dtstudentreportlist', response.params, [], 100);
+                        }
+                    },
+                    error: function() { // your error handler
+                        $this.button('reset');
+                    },
+                    complete: function() {
+                        $this.button('reset');
+                    }
+                });
+            }
+
         });
     });
 </script>
