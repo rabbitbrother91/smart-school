@@ -7,6 +7,9 @@ if (!defined('BASEPATH')) {
 }
 require 'vendor/autoload.php';
 
+/*
+* Import student data from custom stylished xlsx file
+*/
 class ExcelReader
 {
     public $fields;
@@ -34,18 +37,20 @@ class ExcelReader
                     $section_id = intval($worksheet->getTitle()[strlen($worksheet->getTitle()) - 1]);
 
                     $no = isset($rowData['A']) ? $rowData['A'] : '';
-                    $dataRow = array(
-                        'admission_no' => isset($rowData['B']) ? $rowData['B'] : '',
-                        'firstname' => isset($rowData['C']) ? $rowData['C'] : '',
-                        'lastname' => isset($rowData['D']) ? $rowData['D'] : '',
-                        'gender' => isset($rowData['E']) ? $rowData['E'] : '',
-                        'date_of_birth' => isset($rowData['F']) ? $rowData['F'] : '',
-                        'city' => isset($rowData['G']) ? $rowData['G'] : '',
-                        'class_id' => $class_id,
-                        'section_id' => $section_id
-                        // Add more fields as needed
-                    );
+                 
                     if (is_numeric($no)) {
+                        $dataRow = array(
+                            'admission_no' => isset($rowData['B']) ? $rowData['B'] : '',
+                            'firstname' => isset($rowData['C']) ? $rowData['C'] : '',
+                            'lastname' => isset($rowData['D']) ? $rowData['D'] : '',
+                            'gender' => isset($rowData['E']) ? $rowData['E'] : '',
+                            'dob' => isset($rowData['F']) ? $rowData['F'] : '',
+                            'city' => isset($rowData['G']) ? $rowData['G'] : '',
+                            'class_id' => $class_id,
+                            'section_id' => $section_id
+                            // Add more fields as needed
+                        );
+                        
                         $data[] = $dataRow;
                     }
                 }

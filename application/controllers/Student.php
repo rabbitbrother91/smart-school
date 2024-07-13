@@ -1055,7 +1055,7 @@ class Student extends Admin_Controller
 
                             $student_data[$i]['is_active'] = 'yes';
 
-                            if (date('Y-m-d', strtotime($result[$i]['date_of_birth'])) === $result[$i]['date_of_birth']) {
+                            if (date('Y-m-d', strtotime($result[$i]['dob'])) === $result[$i]['dob']) {
                                 $student_data[$i]['dob'] = date('Y-m-d', strtotime($result[$i]['date_of_birth']));
                             } else {
                                 $student_data[$i]['dob'] = null;
@@ -1072,6 +1072,7 @@ class Student extends Admin_Controller
                             } else {
                                 $student_data[$i]['admission_date'] = null;
                             }
+
                             $student_data[$i]['lastname'] = $result[$i]['lastname'];
                             $student_data[$i]['firstname'] = $result[$i]['firstname'];
                             $student_data[$i]['admission_no'] = $result[$i]['admission_no'];
@@ -2374,6 +2375,7 @@ class Student extends Admin_Controller
         $students = array();
         $students = json_decode($resultlist);
 
+
         $dt_data = array();
         $fields = $this->customfield_model->get_custom_fields('students', 1);
 
@@ -2407,7 +2409,8 @@ class Student extends Admin_Controller
                 $row[] = $this->customlib->dateformat($student->dob);
 
                 if (!empty($student->gender)) {
-                    $row[] = $this->lang->line(strtolower($student->gender));
+                    // $row[] = $this->lang->line(strtolower($student->gender));
+                    $row[] = $student->gender;
                 } else {
                     $row[] = '';
                 }
