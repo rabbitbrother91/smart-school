@@ -10,6 +10,7 @@ class Report extends Admin_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('student_helper');
 
         $this->time               = strtotime(date('d-m-Y H:i:s'));
         $this->payment_mode       = $this->customlib->payment_mode();
@@ -2063,7 +2064,7 @@ class Report extends Admin_Controller
         //if pdf generate request, redirect after making from html view and data
         if ($action === 'pdf') {
             // Using print_r
-            $result     = $this->student_model->searchdatatableByClassSectionCategoryGenderRte($class, $section, $category_id, $gender, $rte);
+            $result     = $this->student_model->searchdatatableByClassSectionCategoryGenderRte($class_id, $section_id, $category_id, $gender, $rte);
             $resultlist = json_decode($result);
             // Fetch data from the database
             $data['students'] = $resultlist->data;
@@ -2081,7 +2082,7 @@ class Report extends Admin_Controller
             // Output the generated PDF (D = download, I = inline view)
             $this->tcpdf->Output('student_report.pdf', 'I');
         } 
-        // send valication result
+        // send valication result.
         else {
             echo json_encode($result);
         }

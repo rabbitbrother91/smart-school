@@ -255,7 +255,7 @@
                     <td><?php echo $student->dob; ?></td>
                     <td><?php echo $student->gender; ?></td>
                     <td><?php echo $student->firstname; ?></td>
-                    <td><?php echo $student->id; ?></td>
+                    <td><?php echo $student->admission_no; ?></td>
                     <td><?php echo $index + 1; ?></td>
                 </tr>
             <?php endforeach; ?>

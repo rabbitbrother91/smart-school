@@ -8,8 +8,8 @@
         </h1>
     </section>
     <!-- Main content -->
-    <section class="content" >
-        <?php $this->load->view('reports/_studentinformation');?>
+    <section class="content">
+        <?php $this->load->view('reports/_studentinformation'); ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="box removeboxmius">
@@ -28,92 +28,92 @@
                                         <select autofocus="" id="class_id" name="class_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                             <?php
-foreach ($classlist as $class) {
-    ?>
+                                            foreach ($classlist as $class) {
+                                            ?>
                                                 <option value="<?php echo $class['id'] ?>" <?php if (set_value('class_id') == $class['id']) {
-        echo "selected=selected";
-    }
-    ?>><?php echo $class['class'] ?></option>
-                                                <?php
-$count++;
-}
-?>
+                                                                                                echo "selected=selected";
+                                                                                            }
+                                                                                            ?>><?php echo $class['class'] ?></option>
+                                            <?php
+                                                $count++;
+                                            }
+                                            ?>
                                         </select>
-                                         <span class="text-danger" id="error_class_id"></span>
+                                        <span class="text-danger" id="error_class_id"></span>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-3">
                                     <div class="form-group">
                                         <label><?php echo $this->lang->line('section'); ?></label>
-                                        <select  id="section_id" name="section_id" class="form-control" >
+                                        <select id="section_id" name="section_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                         </select>
                                         <span class="text-danger"><?php echo form_error('section_id'); ?></span>
                                     </div>
                                 </div>
                                 <?php if ($sch_setting->category) {
-    ?>
+                                ?>
                                     <div class="col-sm-3 col-md-2">
                                         <div class="form-group">
                                             <label><?php echo $this->lang->line('category'); ?></label>
-                                            <select  id="category_id" name="category_id" class="form-control" >
+                                            <select id="category_id" name="category_id" class="form-control">
                                                 <option value=""><?php echo $this->lang->line('select'); ?></option>
                                                 <?php
-foreach ($categorylist as $category) {
-        ?>
+                                                foreach ($categorylist as $category) {
+                                                ?>
                                                     <option value="<?php echo $category['id'] ?>" <?php if (set_value('category_id') == $category['id']) {
-            echo "selected=selected";
-        }
-        ?>><?php echo $category['category'] ?></option>
-                                                    <?php
-$count++;
-    }
-    ?>
+                                                                                                        echo "selected=selected";
+                                                                                                    }
+                                                                                                    ?>><?php echo $category['category'] ?></option>
+                                                <?php
+                                                    $count++;
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
-                                <?php }?>
+                                <?php } ?>
                                 <div class="col-sm-3 col-md-2">
                                     <div class="form-group">
                                         <label><?php echo $this->lang->line('gender'); ?></label>
                                         <select class="form-control" name="gender">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                             <?php
-foreach ($genderList as $key => $value) {
-    ?>
+                                            foreach ($genderList as $key => $value) {
+                                            ?>
                                                 <option value="<?php echo $key; ?>" <?php if (set_value('gender') == $key) {
-        echo "selected";
-    }
-    ?>><?php echo $value; ?></option>
-                                                <?php
-}
-?>
+                                                                                        echo "selected";
+                                                                                    }
+                                                                                    ?>><?php echo $value; ?></option>
+                                            <?php
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
                                 <?php if ($sch_setting->rte) {
-    ?>
+                                ?>
                                     <div class="col-sm-3 col-md-2">
                                         <div class="form-group">
                                             <label><?php echo $this->lang->line('rte'); ?></label>
-                                            <select  id="rte" name="rte" class="form-control" >
+                                            <select id="rte" name="rte" class="form-control">
                                                 <option value=""><?php echo $this->lang->line('select'); ?></option>
                                                 <?php
-foreach ($RTEstatusList as $k => $rte) {
-        ?>
+                                                foreach ($RTEstatusList as $k => $rte) {
+                                                ?>
                                                     <option value="<?php echo $k; ?>" <?php if (set_value('rte') == $k) {
-            echo "selected";
-        }
-        ?>><?php echo $rte; ?></option>
+                                                                                            echo "selected";
+                                                                                        }
+                                                                                        ?>><?php echo $rte; ?></option>
 
-                                                    <?php
-$count++;
-    }
-    ?>
+                                                <?php
+                                                    $count++;
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
-                                <?php }?>
+                                <?php } ?>
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <button type="submit" name="action" value="search" class="btn btn-primary btn-sm checkbox-toggle pull-right"><i class="fa fa-search"></i> <?php echo $this->lang->line('search'); ?>
@@ -141,20 +141,20 @@ $count++;
                                             <th><?php echo $this->lang->line('section'); ?></th>
                                             <th><?php echo $this->lang->line('admission_no'); ?></th>
                                             <th><?php echo $this->lang->line('student_name'); ?></th>
-                                            <?php if ($sch_setting->father_name) {?>
+                                            <?php if ($sch_setting->father_name) { ?>
                                                 <th><?php echo $this->lang->line('father_name'); ?></th>
-                                                <?php }?>
+                                            <?php } ?>
                                             <th><?php echo $this->lang->line('date_of_birth'); ?></th>
                                             <th><?php echo $this->lang->line('gender'); ?></th>
-                                            <?php if ($sch_setting->category) {?>
+                                            <?php if ($sch_setting->category) { ?>
                                                 <th><?php echo $this->lang->line('category'); ?></th>
                                             <?php }
                                             if ($sch_setting->mobile_no) { ?>
                                                 <th><?php echo $this->lang->line('mobile_number'); ?></th>
                                             <?php
-}
-if ($sch_setting->local_identification_no) {
-    ?>
+                                            }
+                                            if ($sch_setting->local_identification_no) {
+                                            ?>
                                                 <th><?php echo $this->lang->line('local_identification_number'); ?></th>
                                             <?php }
                                             if ($sch_setting->national_identification_no) { ?>
@@ -162,7 +162,7 @@ if ($sch_setting->local_identification_no) {
                                             <?php }
                                             if ($sch_setting->rte) { ?>
                                                 <th><?php echo $this->lang->line('rte'); ?></th>
-                                            <?php }?>
+                                            <?php } ?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -171,10 +171,10 @@ if ($sch_setting->local_identification_no) {
                             </div>
                         </div>
                     </div><!--./box box-primary -->
-            </div><!-- ./col-md-12 -->
+                </div><!-- ./col-md-12 -->
+            </div>
         </div>
-</div>
-</section>
+    </section>
 </div>
 
 <script type="text/javascript">
@@ -204,11 +204,11 @@ if ($sch_setting->local_identification_no) {
         }
     }
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         var class_id = $('#class_id').val();
         var section_id = '<?php echo set_value('section_id') ?>';
         getSectionByClass(class_id, section_id);
-        $(document).on('change', '#class_id', function (e) {
+        $(document).on('change', '#class_id', function(e) {
             $('#section_id').html("");
             var class_id = $(this).val();
             var base_url = '<?php echo base_url() ?>';
@@ -232,9 +232,9 @@ if ($sch_setting->local_identification_no) {
 </script>
 
 <script>
-$(document).ready(function() {
-    emptyDatatable('student-list','data');
-});
+    $(document).ready(function() {
+        emptyDatatable('student-list', 'data');
+    });
 </script>
 
 <script type="text/javascript">
@@ -261,14 +261,14 @@ $(document).ready(function() {
                         $('[id^=error]').html("");
                         $this.button('loading');
 
-               },
-              success: function(response) { // your success handler
+                    },
+                    success: function(response) { // your success handler
 
-                if(!response.status){
-                    $.each(response.error, function(key, value) {
-                    $('#error_' + key).html(value);
-                    });
-                }else{
+                        if (!response.status) {
+                            $.each(response.error, function(key, value) {
+                                $('#error_' + key).html(value);
+                            });
+                        } else {
 
                             initDatatable('student-list', 'report/dtstudentreportlist', response.params, [], 100);
                         }

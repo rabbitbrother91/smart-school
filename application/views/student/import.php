@@ -27,7 +27,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 $this->session->unset_userdata('msg'); ?> </div> <?php } ?>
                         <br/>
                         1. <?php echo $this->lang->line('import_student_step1'); ?>
-                      <br/>
+                        <br/>
 
                         2. <?php echo $this->lang->line('import_student_step2'); ?> <br/>
                         3. <?php echo $this->lang->line('import_student_step3'); ?>
@@ -49,71 +49,71 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                     <div class="box-body table-responsive">
                         <table class="table table-striped table-bordered table-hover" id="sampledata">
                             <thead>
-                                <tr>
-                                    <?php
-foreach ($fields as $key => $value) {
-    echo $value;
+                            <tr>
+                                <?php
+                                foreach ($fields as $key => $value) {
+                                    echo $value;
 
-    if ($value == 'adhar_no') {
-        $value = "national_identification_no";
-    }
+                                    if ($value == 'adhar_no') {
+                                        $value = "national_identification_no";
+                                    }
 
-    if ($value == 'samagra_id') {
-        $value = "local_identification_no";
-    }
+                                    if ($value == 'samagra_id') {
+                                        $value = "local_identification_no";
+                                    }
 
-    if ($value == 'firstname') {
-        $value = "first_name";
-    }
+                                    if ($value == 'firstname') {
+                                        $value = "first_name";
+                                    }
 
-    if ($value == 'middlename') {
-        $value = "middle_name";
-    }
+                                    if ($value == 'middlename') {
+                                        $value = "middle_name";
+                                    }
 
-    if ($value == 'lastname') {
-        $value = "last_name";
-    }
+                                    if ($value == 'lastname') {
+                                        $value = "last_name";
+                                    }
 
-    if ($value == 'guardian_is') {
-        $value = "if_guardian_is";
-    }
+                                    if ($value == 'guardian_is') {
+                                        $value = "if_guardian_is";
+                                    }
 
-    if ($value == 'dob') {
-        $value = "date_of_birth";
-    }
+                                    if ($value == 'dob') {
+                                        $value = "date_of_birth";
+                                    }
 
-    if ($value == 'category_id') {
-        $value = "category";
-    }
+                                    if ($value == 'category_id') {
+                                        $value = "category";
+                                    }
 
-    if ($value == 'school_house_id') {
-        $value = "house";
-    }
+                                    if ($value == 'school_house_id') {
+                                        $value = "house";
+                                    }
 
-    if ($value == 'mobileno') {
-        $value = "mobile_no";
-    }
+                                    if ($value == 'mobileno') {
+                                        $value = "mobile_no";
+                                    }
 
-    if ($value == 'previous_school') {
-        $value = "previous_school_details";
-    }
-    $add = "";
+                                    if ($value == 'previous_school') {
+                                        $value = "previous_school_details";
+                                    }
+                                    $add = "";
 
-    if (($value == "admission_no") || ($value == "firstname") || ($value == "date_of_birth") || ($value == "if_guardian_is") || ($value == "gender") || ($value == "guardian_name") || ($value == "guardian_phone")) {
-        $add = "<span class=text-red>*</span>";
-    }
-    ?>
-                                        <th><?php echo $add . "<span>" . $this->lang->line($value) . "</span>"; ?></th>
-                                    <?php }?>
-                                </tr>
+                                    if (($value == "admission_no") || ($value == "firstname") || ($value == "date_of_birth") || ($value == "if_guardian_is") || ($value == "gender") || ($value == "guardian_name") || ($value == "guardian_phone")) {
+                                        $add = "<span class=text-red>*</span>";
+                                    }
+                                    ?>
+                                    <th><?php echo $add . "<span>" . $this->lang->line($value) . "</span>"; ?></th>
+                                <?php } ?>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php foreach ($fields as $key => $value) {
-    ?>
-                                        <td><?php echo $this->lang->line('sample_data'); ?></td>
-                                    <?php }?>
-                                </tr>
+                            <tr>
+                                <?php foreach ($fields as $key => $value) {
+                                    ?>
+                                    <td><?php echo $this->lang->line('sample_data'); ?></td>
+                                <?php } ?>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -130,13 +130,13 @@ foreach ($fields as $key => $value) {
                                         <select autofocus="" id="class_id" name="class_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                             <?php
-foreach ($classlist as $class) {
-    ?>
+                                            foreach ($classlist as $class) {
+                                                ?>
                                                 <option value="<?php echo $class['id'] ?>"><?php echo $class['class'] ?></option>
                                                 <?php
-$count++;
-}
-?>
+                                                $count++;
+                                            }
+                                            ?>
                                         </select>
                                         <span class="text-danger"><?php echo form_error('class_id'); ?></span>
                                     </div>
@@ -207,61 +207,61 @@ $count++;
     </section>
 </div>
 
-            <script type="text/javascript">
-                function getSectionByClass(class_id, section_id) {
-                    if (class_id != "" && section_id != "") {
-                        $('#section_id').html("");
-                        var base_url = '<?php echo base_url() ?>';
-                        var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
-                        $.ajax({
-                            type: "GET",
-                            url: base_url + "sections/getByClass",
-                            data: {'class_id': class_id},
-                            dataType: "json",
-                            success: function (data) {
-                                $.each(data, function (i, obj)
-                                {
-                                    var sel = "";
-                                    if (section_id == obj.section_id) {
-                                        sel = "selected";
-                                    }
-                                    div_data += "<option value=" + obj.section_id + " " + sel + ">" + obj.section + "</option>";
-                                });
-                                $('#section_id').append(div_data);
-                            }
-                        });
-                    }
-                }
+<script type="text/javascript">
 
-                $(document).ready(function () {
-                    $("#sampledata").DataTable({
-                        searching: false,
-                        ordering: false,
-                        paging: false,
-                        bSort: false,
-                        info: false, });
-
-                    var class_id = $('#class_id').val();
-                    var section_id = '<?php echo set_value('section_id') ?>';
-                    getSectionByClass(class_id, section_id);
-                    $(document).on('change', '#class_id', function (e) {
-                        $('#section_id').html("");
-                        var class_id = $(this).val();
-                        var base_url = '<?php echo base_url() ?>';
-                        var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
-                        $.ajax({
-                            type: "GET",
-                            url: base_url + "sections/getByClass",
-                            data: {'class_id': class_id},
-                            dataType: "json",
-                            success: function (data) {
-                                $.each(data, function (i, obj)
-                                {
-                                    div_data += "<option value=" + obj.section_id + ">" + obj.section + "</option>";
-                                });
-                                $('#section_id').append(div_data);
-                            }
-                        });
+    function getSectionByClass(class_id, section_id) {
+        if (class_id != "" && section_id != "") {
+            $('#section_id').html("");
+            var base_url = '<?php echo base_url() ?>';
+            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+            $.ajax({
+                type: "GET",
+                url: base_url + "sections/getByClass",
+                data: {'class_id': class_id},
+                dataType: "json",
+                success: function (data) {
+                    $.each(data, function (i, obj) {
+                        var sel = "";
+                        if (section_id == obj.section_id) {
+                            sel = "selected";
+                        }
+                        div_data += "<option value=" + obj.section_id + " " + sel + ">" + obj.section + "</option>";
                     });
-                });
-            </script>
+                    $('#section_id').append(div_data);
+                }
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        $("#sampledata").DataTable({
+            searching: false,
+            ordering: false,
+            paging: false,
+            bSort: false,
+            info: false,
+        });
+
+        var class_id = $('#class_id').val();
+        var section_id = '<?php echo set_value('section_id') ?>';
+        getSectionByClass(class_id, section_id);
+        $(document).on('change', '#class_id', function (e) {
+            $('#section_id').html("");
+            var class_id = $(this).val();
+            var base_url = '<?php echo base_url() ?>';
+            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+            $.ajax({
+                type: "GET",
+                url: base_url + "sections/getByClass",
+                data: {'class_id': class_id},
+                dataType: "json",
+                success: function (data) {
+                    $.each(data, function (i, obj) {
+                        div_data += "<option value=" + obj.section_id + ">" + obj.section + "</option>";
+                    });
+                    $('#section_id').append(div_data);
+                }
+            });
+        });
+    });
+</script>
