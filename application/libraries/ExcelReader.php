@@ -12,6 +12,8 @@ require 'vendor/autoload.php';
 */
 class ExcelReader
 {
+    protected $CI;
+    
     public $fields;
     /** columns names retrieved after parsing */
     public $separator = ';';
@@ -20,6 +22,12 @@ class ExcelReader
     /** enclosure used to decorate each field */
     public $max_row_size = 4096;
 
+    public function __construct()
+    {
+        $this->CI =& get_instance();
+
+        $this->CI->load->model('Section_model');
+    }
     public function parse_file($file)
     {
         try {
@@ -34,7 +42,7 @@ class ExcelReader
                         continue; // Skip header row
                     }
                     $class_id = intval($worksheet->getTitle()[0]);
-                    $section_id = intval($worksheet->getTitle()[strlen($worksheet->getTitle()) - 1]);
+                    $section_id = $this->CI->section_model->getSectionByName($worksheet->getTitle());
 
                     $no = isset($rowData['A']) ? $rowData['A'] : '';
                  

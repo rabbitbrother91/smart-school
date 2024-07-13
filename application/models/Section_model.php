@@ -46,6 +46,19 @@ class Section_model extends MY_Model {
         }
     }
 
+    /*
+    * @author:  Jin
+    * @issue: exception process when no matching
+    */
+    public function getSectionByName($name){
+        $this->db->select('sections.id');
+        $this->db->from('sections');
+        $this->db->where('section', $name);
+        $query = $this->db->get();
+        $section = $query->result_array();
+        return $section[0]['id'];
+    }
+
     public function getClassBySectionAll($classid) {
 
         $this->db->select('class_sections.id,class_sections.section_id,sections.section');

@@ -1035,6 +1035,8 @@ class Student extends Admin_Controller
         $data['categorylist'] = $category;
 
         $session = $this->setting_model->getCurrentSession();
+
+        // if file exist, go ahead process
         if (isset($_FILES["file"]) && !empty($_FILES['file']['name'])) {
             $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
             if ($ext == 'xlsx') {
@@ -1056,7 +1058,7 @@ class Student extends Admin_Controller
                             $student_data[$i]['is_active'] = 'yes';
 
                             if (date('Y-m-d', strtotime($result[$i]['dob'])) === $result[$i]['dob']) {
-                                $student_data[$i]['dob'] = date('Y-m-d', strtotime($result[$i]['date_of_birth']));
+                                $student_data[$i]['dob'] = date('Y-m-d', strtotime($result[$i]['dob']));
                             } else {
                                 $student_data[$i]['dob'] = null;
                             }
