@@ -1047,7 +1047,6 @@ class Student extends Admin_Controller
 
                 if (!empty($result)) {
                     $rowcount = 0;
-
                     for ($i = 1; $i <= count($result); $i++) {
                         $student_data[$i] = array();
                         $n = 0;
@@ -1121,6 +1120,7 @@ class Student extends Admin_Controller
                             }
                         }
 
+            
                         //-------------------------
                         if (!empty($insert_id)) {
                             $data_new = array(
@@ -1187,7 +1187,6 @@ class Student extends Admin_Controller
             } else {
                 $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">' . $this->lang->line('please_upload_csv_file_only') . '</div>');
             }
-
 
         }
         redirect('student/import');
