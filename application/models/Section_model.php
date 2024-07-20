@@ -3,13 +3,16 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Section_model extends MY_Model {
+class Section_model extends MY_Model
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function get($id = null) {
+    public function get($id = null)
+    {
         $this->db->select()->from('sections');
         if ($id != null) {
             $this->db->where('id', $id);
@@ -24,7 +27,8 @@ class Section_model extends MY_Model {
         }
     }
 
-    public function remove($id) {
+    public function remove($id)
+    {
         $this->db->trans_start(); # Starting Transaction
         $this->db->trans_strict(false); # See Note 01. If you wish can remove as well
         //=======================Code Start===========================
@@ -50,7 +54,8 @@ class Section_model extends MY_Model {
     * @author:  Jin
     * @issue: exception process when no matching
     */
-    public function getSectionByName($name){
+    public function getByName($name)
+    {
         $this->db->select('sections.id');
         $this->db->from('sections');
         $this->db->where('section', $name);
@@ -59,7 +64,8 @@ class Section_model extends MY_Model {
         return $section[0]['id'];
     }
 
-    public function getClassBySectionAll($classid) {
+    public function getClassBySectionAll($classid)
+    {
 
         $this->db->select('class_sections.id,class_sections.section_id,sections.section');
         $this->db->from('class_sections');
@@ -71,8 +77,9 @@ class Section_model extends MY_Model {
 
         return $section;
     }
- 
-    public function getClassBySection($classid) {
+
+    public function getClassBySection($classid)
+    {
         $userdata = $this->customlib->getUserData();
         $role_id = $userdata["role_id"];
         $carray = array();
@@ -93,20 +100,21 @@ class Section_model extends MY_Model {
         return $section;
     }
 
-    public function getClassTeacherSection($classid) {
+    public function getClassTeacherSection($classid)
+    {
 
         $userdata = $this->customlib->getUserData();
         if (($userdata["role_id"] == 2)) {
             $id = $userdata["id"];
-        
+
             $query = $this->db->select("class_teacher.section_id ")->join('sections', 'sections.id = class_teacher.section_id')->join('class_sections', 'sections.id = class_sections.section_id')->where(array('class_teacher.class_id' => $classid, 'class_teacher.staff_id' => $id))->group_by("class_teacher.section_id")->get("class_teacher");
             $result = $query->result_array();
 
             foreach ($result as $key => $value) {
                 $query2 = $this->db->select('class_sections.id,sections.section')
-                        ->join('sections', 'sections.id = class_sections.section_id')
-                        ->where('sections.section_id', $value['section_id'])
-                        ->get('class_sections');
+                    ->join('sections', 'sections.id = class_sections.section_id')
+                    ->where('sections.section_id', $value['section_id'])
+                    ->get('class_sections');
                 $result2 = $query2->row_array();
                 $result[$key]['id'] = $result2['id'];
                 $result[$key]['section'] = $result2['section'];
@@ -115,14 +123,16 @@ class Section_model extends MY_Model {
         }
     }
 
-    public function getSubjectTeacherSection($classid, $id) {
+    public function getSubjectTeacherSection($classid, $id)
+    {
 
         $query = $this->db->select("class_sections.id,sections.section,class_sections.section_id")->join("class_sections", "teacher_subjects.class_section_id = class_sections.id")->join('sections', 'sections.id = class_sections.section_id')->where(array('class_sections.class_id' => $classid, 'teacher_subjects.teacher_id' => $id))->get("teacher_subjects");
 
         return $query->result_array();
     }
 
-    public function getClassNameBySection($classid, $sectionid) {
+    public function getClassNameBySection($classid, $sectionid)
+    {
         $this->db->select('class_sections.id,class_sections.section_id,sections.section,classes.class');
         $this->db->from('class_sections');
         $this->db->join('sections', 'sections.id = class_sections.section_id');
@@ -134,7 +144,8 @@ class Section_model extends MY_Model {
         return $query->result_array();
     }
 
-    public function getClassAndSectionNameByClassIDSectionID($classid, $sectionid) {
+    public function getClassAndSectionNameByClassIDSectionID($classid, $sectionid)
+    {
         $this->db->select('class_sections.id,class_sections.section_id,sections.section,classes.class');
         $this->db->from('class_sections');
         $this->db->join('sections', 'sections.id = class_sections.section_id');
@@ -147,7 +158,8 @@ class Section_model extends MY_Model {
     }
 
 
-    public function add($data) {
+    public function add($data)
+    {
         $this->db->trans_start(); # Starting Transaction
         $this->db->trans_strict(false); # See Note 01. If you wish can remove as well
         //=======================Code Start===========================
@@ -191,5 +203,20 @@ class Section_model extends MY_Model {
             }
         }
     }
+    public function checkByName($name)
+    {
+        $this->db->where('section', $name);
 
+        $query = $this->db->get('sections');
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+
+    public function addByName($name)
+    {
+        $this->db->insert('sections', array('section' => $name, 'is_active' => 'yes'));
+    }
 }

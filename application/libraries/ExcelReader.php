@@ -27,6 +27,8 @@ class ExcelReader
         $this->CI =& get_instance();
 
         $this->CI->load->model('Section_model');
+        $this->CI->load->model('Class_model');
+        $this->CI->load->model('Classsection_model');
     }
     public function parse_file($file)
     {
@@ -37,15 +39,46 @@ class ExcelReader
 
             foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
                 $sheetData = $worksheet->toArray(null, true, true, true);
+
+                $class_name = isset($sheetData[7]['C']) ? $sheetData[7]['C'] : null;
+                $section_name = isset($sheetData[8]['C']) ? $sheetData[8]['C'] : null;
+
+                // add class if not exist
+                if ($class_name != null) {
+                    if (!$this->CI->class_model->check_data_exists($class_name)) {
+                        $this->CI->class_model->addByName($class_name);
+                        log_message('error', 'name_ok_class ' . $class_name);
+                    }
+                    $class_id = $this->CI->class_model->getByName($class_name);
+                }
+                // add section if not exist
+                if ($section_name != null) {
+                    if (!$this->CI->section_model->checkByName($section_name)) {
+                        $this->CI->section_model->addByName($section_name);
+                        log_message('error', 'name_ok_section ' . $section_name);
+                    }
+                    $section_id = $this->CI->section_model->getByName($section_name);
+                }
+                // add class and section matching table if not exist
+                if ($section_id != null && $class_id != null) {
+                    if (!$this->CI->classsection_model->check_data_exists(array('class_id' => $class_id, 'section_id' => $section_id))) {
+                        $this->CI->classsection_model->addClassSection($class_id, $section_id);
+                        log_message('error', 'name_ok_section_class ' . $class_id . $section_id);
+                    }
+                }
+
+
                 foreach ($sheetData as $row => $rowData) {
                     if ($row == 1) {
                         continue; // Skip header row
                     }
-                    $class_id = intval($worksheet->getTitle()[0]);
-                    $section_id = $this->CI->section_model->getSectionByName($worksheet->getTitle());
 
                     $no = isset($rowData['A']) ? $rowData['A'] : '';
-                 
+
+                    // if (strpos($no, ": ???????") === true) {
+                    //     $class_name = isset($rowData['B']) ? $rowData['B'] : '';
+                    // }
+
                     if (is_numeric($no)) {
                         $dataRow = array(
                             'admission_no' => isset($rowData['B']) ? $rowData['B'] : '',
@@ -58,12 +91,11 @@ class ExcelReader
                             'section_id' => $section_id
                             // Add more fields as needed
                         );
-                        
+
                         $data[] = $dataRow;
                     }
                 }
             }
-
             return $data;
         } catch (Exception $e) {
             log_message('error', 'Error parsing Excel file: ' . $e->getMessage());

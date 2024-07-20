@@ -103,6 +103,11 @@ class Classsection_model extends MY_Model
         }
     }
 
+    public function addClassSection($class_id, $section_id)
+    {
+        $this->db->insert('class_sections', array('class_id' => $class_id, 'section_id' => $section_id, 'is_active' => 'yes'));
+    }
+    
     public function getDetailbyClassSection($class_id, $section_id)
     {
         $this->db->select('class_sections.*,classes.class,sections.section')->from('class_sections');
@@ -199,15 +204,14 @@ class Classsection_model extends MY_Model
     public function getClassSectionStudentCount()
     {
         $class_section_array = $this->customlib->get_myClassSectionQuerystring('class_sections');
-		$userdata = $this->customlib->getUserData();
+        $userdata = $this->customlib->getUserData();
         $query = "SELECT class_sections.*,classes.class,sections.section,(SELECT COUNT(*) FROM student_session INNER JOIN students on students.id=student_session.student_id WHERE student_session.class_id=classes.id and student_session.section_id=sections.id and students.is_active='yes'  and student_session.session_id=" . $this->current_session . " )  as student_count FROM `class_sections` INNER JOIN classes on classes.id=class_sections.class_id INNER JOIN sections on sections.id=class_sections.section_id  where 0=0 " . $class_section_array . " ORDER by classes.class ASC, sections.section asc";
         $query = $this->db->query($query);
-        $std_data= $query->result();
-		 if (($userdata["role_id"] == 2) && ($userdata["class_teacher"] == "yes") && (empty($class_section_array))) {
-        
-        $std_data=array();
-         }
-		 return $std_data;
-    }
+        $std_data = $query->result();
+        if (($userdata["role_id"] == 2) && ($userdata["class_teacher"] == "yes") && (empty($class_section_array))) {
 
+            $std_data = array();
+        }
+        return $std_data;
+    }
 }

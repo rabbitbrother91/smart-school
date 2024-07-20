@@ -44,11 +44,11 @@ class Class_model extends MY_Model
         $carray   = array();
         if (isset($role_id) && ($userdata["role_id"] == 2) && ($userdata["class_teacher"] == "yes")) {
             if ($userdata["class_teacher"] == 'yes') {
-             
+
                 $classlist = $this->teacher_model->get_teacherrestricted_mode($userdata["id"]);
             }
         } else {
-         
+
             $this->db->select()->from('classes');
             if ($id != null) {
                 $this->db->where('id', $id);
@@ -109,6 +109,11 @@ class Class_model extends MY_Model
         } else {
             $this->db->insert('classes', $data);
         }
+    }
+
+    public function addByName($name)
+    {
+        $this->db->insert('classes', array('class' => $name, 'is_active' => 'yes'));
     }
 
     public function check_data_exists($data)
@@ -189,4 +194,17 @@ class Class_model extends MY_Model
         return $this->db->select('sections.id,sections.section')->from('class_sections')->join('sections', 'class_sections.section_id=sections.id')->where('class_id', $id)->get()->result_array();
     }
 
+    /*
+    * @author:  Jin
+    * @issue: exception process when no matching
+    */
+    public function getByName($name)
+    {
+        $this->db->select('classes.id');
+        $this->db->from('classes');
+        $this->db->where('class', $name);
+        $query = $this->db->get();
+        $section = $query->result_array();
+        return $section[0]['id'];
+    }
 }
