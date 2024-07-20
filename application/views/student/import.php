@@ -186,18 +186,20 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleInputFile"><?php echo $this->lang->line('select_xlsx_file'); ?></label><small
-                                                    class="req"> *</small>
-                                            <div><input class="filestyle form-control" type='file' name='file' id="file"
-                                                        size='20'/>
-                                                <span class="text-danger"><?php echo form_error('file'); ?></span></div>
+                                            <label for="exampleInputFile"><?php echo $this->lang->line('select_xlsx_file'); ?></label><small class="req"> *</small>
+                                            <div><input class="filestyle form-control" type='file' name='file' id="file" size='20' />
+                                                <span class="text-danger"><?php echo form_error('file'); ?></span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pt20">
-                                        <button type="submit"
-                                                class="btn btn-info pull-right"><?php echo $this->lang->line('import_student'); ?></button>
+                                        <button type="submit" class="btn btn-info pull-right"><?php echo $this->lang->line('import_student'); ?></button>
                                     </div>
-
+                                </div>
+                                <div class="progress">
+                                    <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;">
+                                    </div>
+                                    <span id="progressText" class="progress-text"></span>
                                 </div>
                             </div>
                         </form>
@@ -206,6 +208,36 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                 </div>
     </section>
 </div>
+
+<style>
+    .progress {
+        position: relative;
+        width: 100%;
+        height: 30px;
+        /* Adjust the height as needed */
+    }
+
+    .progress-bar {
+        position: relative;
+        text-align: center;
+        /* Align text to the left */
+        color: #fff;
+        /* Text color */
+        font-weight: bold;
+        /* Make text bold */
+    }
+
+    .progress-text {
+        position: absolute;
+        top: 50%;
+        color: black;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 1;
+        /* Ensure text is above the progress bar */
+    }
+</style>
 
 <script type="text/javascript">
 
@@ -233,33 +265,76 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
         }
     }
 
-    $(document).ready(function () {
-        $("#sampledata").DataTable({
-            searching: false,
-            ordering: false,
-            paging: false,
-            bSort: false,
-            info: false,
-        });
+    $(document).ready(function() {
+        var progressInterval;
 
-        var class_id = $('#class_id').val();
-        var section_id = '<?php echo set_value('section_id') ?>';
-        getSectionByClass(class_id, section_id);
-        $(document).on('change', '#class_id', function (e) {
-            $('#section_id').html("");
-            var class_id = $(this).val();
-            var base_url = '<?php echo base_url() ?>';
-            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+        function checkProgress() {
+            progressInterval = setInterval(function() {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '<?= base_url("student/import_progress") ?>',
+                    success: function(response) {
+                        console.log(response);
+                        if (response.status) {
+                            let current = response.current; // Assuming response.current is the progress percentage
+                            let total = response.total; // Assuming response.total is the total value
+                            if (current > 0) {
+                                let progress = Math.floor(current / total * 100);
+                                $('#progressBar').css('width', progress + '%');
+                                $('#progressBar').attr('aria-valuenow', progress);
+
+                                // Update progress text
+                                $('#progressText').text(progress + '% (' + current + ' / ' + total + ')');
+                                // Stop the interval when progress is 100%
+                                if (progress >= 100) {
+                                    clearInterval(progressInterval);
+                                }
+                            }
+
+
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error("Error while checking progress:", xhr);
+                        clearInterval(progressInterval);
+                    }
+                });
+            }, 1000);
+        }
+        $('#uploadForm').on('submit', function(e) {
+            e.preventDefault();
+            let formData = new FormData(this);
+
+            // Start checking progress right before sending the upload request
+            checkProgress();
+
             $.ajax({
-                type: "GET",
-                url: base_url + "sections/getByClass",
-                data: {'class_id': class_id},
-                dataType: "json",
-                success: function (data) {
-                    $.each(data, function (i, obj) {
-                        div_data += "<option value=" + obj.section_id + ">" + obj.section + "</option>";
+                type: 'POST',
+                url: '<?= base_url("student/import_from_xlsx") ?>',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    let data = JSON.parse(response).data;
+                    console.log(data);
+                    Swal.fire({
+                        title: '<span style="font-size: 1.4em;">Updated!</span>',
+                        html: '<span style="font-size: 1.3em;">Students have been updated successfully.<br><br>Updated Male: ' + data.updatedMale + '<br>Updated Female: ' + data.updatedFemale + '</span>',
+                        icon: 'success',
+                        confirmButtonText: '<span style="font-size: 1.2em;">OK</span>'
                     });
-                    $('#section_id').append(div_data);
+                    clearInterval(progressInterval);
+                    // Optionally, you can handle final success UI updates here
+                },
+                error: function(xhr) {
+                    console.error("Upload error:", xhr);
+                    clearInterval(progressInterval);
+                    // Optionally, you can handle error UI updates here
+                },
+                complete: function() {
+                    clearInterval(progressInterval);
+                    // Optionally, you can handle completion UI updates here
                 }
             });
         });

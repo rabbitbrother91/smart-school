@@ -1014,6 +1014,10 @@ class Student extends Admin_Controller
         $msg = $this->mailsmsconf->mailsms('student_login_credential', $parent_login_detail);
     }
 
+    /*
+    * Import student data from specific XlSX tables
+    * @author : JinJin
+    */
     public function import_from_xlsx()
     {
         if (!$this->rbac->hasPrivilege('import_student', 'can_view')) {
@@ -1035,6 +1039,11 @@ class Student extends Admin_Controller
         $data['categorylist'] = $category;
 
         $session = $this->setting_model->getCurrentSession();
+        $female_added = 0;
+        $male_added = 0;
+
+        $this->session->set_userdata('import_total', 0);
+        $this->session->set_userdata('import_current', 0);
 
         // if file exist, go ahead process
         if (isset($_FILES["file"]) && !empty($_FILES['file']['name'])) {
@@ -1045,9 +1054,14 @@ class Student extends Admin_Controller
                 $this->load->library('ExcelReader');
                 $result = $this->excelreader->parse_file($file);
 
+                $totalCount = count($result);
                 if (!empty($result)) {
                     $rowcount = 0;
-                    for ($i = 1; $i <= count($result); $i++) {
+                    $this->session->set_userdata('import_total', $totalCount);
+                    for ($i = 1; $i <= $totalCount; $i++) {
+                        $this->session->set_userdata('import_current', $i);
+                        session_write_close();
+                        session_start();
                         $student_data[$i] = array();
                         $n = 0;
                         foreach ($result[$i] as $key => $value) {
@@ -1130,6 +1144,11 @@ class Student extends Admin_Controller
                                 'session_id' => $session,
                             );
 
+                            // increase added student count
+                            if ($result[$i]['gender'] === '???')
+                                $male_added++;
+                            else $female_added++;
+
                             $this->student_model->add_student_session($data_new);
                             $user_password = $this->role->get_random_password($chars_min = 6, $chars_max = 6, $use_upper_case = false, $include_numbers = true, $include_special_chars = false);
                             $sibling_id = $this->input->post('sibling_id');
@@ -1178,7 +1197,8 @@ class Student extends Admin_Controller
 //                            log_message('error', 'new data' . $i . ':' . json_encode($data_new));
 
                         } else {
-//                            $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">' . $this->lang->line('record_already_exist') . '</div>');
+                            $exist_count++;
+                            $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">' . $this->lang->line('record_already_exist') . '</div>');
                         }
                     }
                 } else {
@@ -1189,7 +1209,27 @@ class Student extends Admin_Controller
             }
 
         }
-        redirect('student/import');
+
+        $response['total'] = $totalCount;
+        $response['alreadyExist'] =  $exist_count;
+        $response['updatedMale'] = $male_added;
+        $response['updatedFemale'] = $female_added;
+
+        echo json_encode(array('status' => true, 'data'=>$response));
+        // redirect('student/import');
+    }
+
+    // sync update progress
+    public function import_progress()
+    {
+        $total = $this->session->userdata('import_total');
+        $current = $this->session->userdata('import_current');
+
+        echo json_encode(array(
+            'status' => true, // Indicating the request was successful
+            'current' => $current, // Progress percentage
+            'total' => $total
+        ));
     }
 
     public function import()
