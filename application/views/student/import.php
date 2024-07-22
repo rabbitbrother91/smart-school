@@ -203,7 +203,35 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 </div>
                             </div>
                         </form>
-
+                    </div>
+                </div>
+                <div class="box box-info" style="padding:5px;">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-search"></i> <?php echo $this->lang->line('update_secret_codes'); ?></h3>
+                        <hr />
+                        <form id="update_secret_codes" name="update_secret_codes" enctype="multipart/form-data">
+                            <div class="box-body">
+                                <?php echo $this->customlib->getCSRF(); ?>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputFile"><?php echo $this->lang->line('select_xlsx_file'); ?></label><small class="req"> *</small>
+                                            <div><input class="filestyle form-control" type='file' name='file' id="file" size='20' />
+                                                <span class="text-danger"><?php echo form_error('file'); ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 pt20">
+                                        <button type="submit" class="btn btn-info pull-right"><?php echo $this->lang->line('update'); ?></button>
+                                    </div>
+                                </div>
+                                <div class="progress">
+                                    <div id="progressBar2" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;">
+                                    </div>
+                                    <span id="progressText2" class="progress-text"></span>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
     </section>
@@ -267,6 +295,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
     $(document).ready(function() {
         var progressInterval;
+        var progressInterval2;
 
         function checkProgress() {
             progressInterval = setInterval(function() {
@@ -302,6 +331,42 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                 });
             }, 1000);
         }
+
+        function checkProgress2() {
+            progressInterval2 = setInterval(function() {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '<?= base_url("student/import_progress") ?>',
+                    success: function(response) {
+                        console.log(response);
+                        if (response.status) {
+                            let current = response.current; // Assuming response.current is the progress percentage
+                            let total = response.total; // Assuming response.total is the total value
+                            if (current > 0) {
+                                let progress = Math.floor(current / total * 100);
+                                $('#progressBar2').css('width', progress + '%');
+                                $('#progressBar2').attr('aria-valuenow', progress);
+
+                                // Update progress text
+                                $('#progressText2').text(progress + '% (' + current + ' / ' + total + ')');
+                                // Stop the interval when progress is 100%
+                                if (progress >= 100) {
+
+                                    clearInterval(progressInterval2);
+                                }
+                            }
+
+
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error("Error while checking progress:", xhr);
+                        clearInterval(progressInterval2);
+                    }
+                });
+            }, 100);
+        }
         $('#uploadForm').on('submit', function(e) {
             e.preventDefault();
             let formData = new FormData(this);
@@ -324,17 +389,32 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         icon: 'success',
                         confirmButtonText: '<span style="font-size: 1.2em;">OK</span>'
                     });
-                    clearInterval(progressInterval);
-                    // Optionally, you can handle final success UI updates here
-                },
-                error: function(xhr) {
-                    console.error("Upload error:", xhr);
-                    clearInterval(progressInterval);
-                    // Optionally, you can handle error UI updates here
-                },
-                complete: function() {
-                    clearInterval(progressInterval);
-                    // Optionally, you can handle completion UI updates here
+                }
+            });
+        });
+
+        $('#update_secret_codes').on('submit', function(e) {
+            e.preventDefault();
+            let formData = new FormData(this);
+
+            // Start checking progress right before sending the upload request
+            checkProgress2();
+
+            $.ajax({
+                type: 'POST',
+                url: '<?= base_url("student/update_secret_codes") ?>',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    let data = JSON.parse(response).data;
+                    console.log(data);
+                    Swal.fire({
+                        title: '<span style="font-size: 1.4em;">Updated!</span>',
+                        html: '<span style="font-size: 1.3em;">Student information have been updated successfully.<br><br>Updated Students: ' + data.updated,
+                        icon: 'success',
+                        confirmButtonText: '<span style="font-size: 1.2em;">OK</span>'
+                    });
                 }
             });
         });

@@ -13,7 +13,7 @@ require 'vendor/autoload.php';
 class ExcelReader
 {
     protected $CI;
-    
+
     public $fields;
     /** columns names retrieved after parsing */
     public $separator = ';';
@@ -24,7 +24,7 @@ class ExcelReader
 
     public function __construct()
     {
-        $this->CI =& get_instance();
+        $this->CI = &get_instance();
 
         $this->CI->load->model('Section_model');
         $this->CI->load->model('Class_model');
@@ -36,8 +36,8 @@ class ExcelReader
             $objReader = IOFactory::createReader('Xlsx');
             $objPHPExcel = $objReader->load($file);
             $data = array();
-
             foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
+
                 $sheetData = $worksheet->toArray(null, true, true, true);
 
                 $class_name = isset($sheetData[7]['C']) ? $sheetData[7]['C'] : null;
@@ -73,13 +73,13 @@ class ExcelReader
                         continue; // Skip header row
                     }
 
-                    $no = isset($rowData['A']) ? $rowData['A'] : '';
+                    $adimssion_no = isset($rowData['A']) ? $rowData['A'] : '';
 
-                    // if (strpos($no, ": المستوى") === true) {
+                    // if (strpos($adimssion_no, ": المستوى") === true) {
                     //     $class_name = isset($rowData['B']) ? $rowData['B'] : '';
                     // }
 
-                    if (is_numeric($no)) {
+                    if (is_numeric($adimssion_no)) {
                         $adimssion_no = isset($rowData['B']) ? $rowData['B'] : '';
                         if ($adimssion_no !== '') {
                             $dataRow = array(
@@ -106,6 +106,37 @@ class ExcelReader
         }
     }
 
+    public function parse_secret_codes($file)
+    {
+        try {
+            $objReader = IOFactory::createReader('Xlsx');
+            $objPHPExcel = $objReader->load($file);
+            $data = array();
+            foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
+                $sheetData = $worksheet->toArray(null, true, true, true);
+
+                foreach ($sheetData as $row => $rowData) {
+                    if ($row < 11) {
+                        continue;
+                    }
+
+                    $adimssion_no = isset($rowData['B']) ? $rowData['B'] : '';
+                    $pincode = isset($rowData['F']) ? $rowData['F'] : '';
+                    if ($adimssion_no != '') {
+                        $dataRow = array(
+                            'admission_no' => $adimssion_no,
+                            'pincode' => $pincode
+                        );
+                        $data[] = $dataRow;
+                    }
+                }
+            }
+            return $data;
+        } catch (Exception $e) {
+            log_message('error', 'Error parsing Excel file: ' . $e->getMessage());
+            return array();
+        }
+    }
     private function getFileType($file)
     {
         $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));

@@ -2367,3 +2367,4 @@ $lang['biometric'] = "Biometric";
 $lang['manual'] = "Manual";
 $lang['staff_day_wise_attendance_report'] = "Staff Day Wise Attendance Report";
 $lang['student_day_wise_attendance_report'] = "Student Day Wise Attendance Report";
+$lang['update_secret_codes'] = "Update Secret Codes";
