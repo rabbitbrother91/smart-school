@@ -1059,7 +1059,7 @@ class Student extends Admin_Controller
                     $rowcount = 0;
                     $this->session->set_userdata('import_total', $totalCount);
                     for ($i = 1; $i <= $totalCount; $i++) {
-                        $this->session->set_userdata('import_current', $i);
+                        $this->session->set_userdata('import_current', $i+1);
                         session_write_close();
                         session_start();
                         $student_data[$i] = array();
@@ -1211,10 +1211,49 @@ class Student extends Admin_Controller
         $response['updatedMale'] = $male_added;
         $response['updatedFemale'] = $female_added;
 
-        echo json_encode(array('status' => true, 'data'=>$response));
+        echo json_encode(array('status' => true, 'data' => $response));
         // redirect('student/import');
     }
 
+    public function update_secret_codes()
+    {
+        if (!$this->rbac->hasPrivilege('import_student', 'can_view')) {
+            access_denied();
+        }
+
+        $this->session->set_userdata('import_total', 0);
+        $this->session->set_userdata('import_current', 0);
+        $updated = 0;
+        if (isset($_FILES["file"]) && !empty($_FILES['file']['name'])) {
+            $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+            if ($ext == 'xlsx') {
+                $file = $_FILES['file']['tmp_name'];
+
+                $this->load->library('ExcelReader');
+                $result = $this->excelreader->parse_secret_codes($file);
+
+                $totalCount = count($result);
+
+                $this->session->set_userdata('import_total', $totalCount);
+                for ($i = 0; $i < $totalCount; $i++) {
+                    $this->session->set_userdata('import_current', $i+1);
+                    session_write_close();
+                    session_start();
+
+                    $admission_no_exists = $this->student_model->check_adm_exists($result[$i]['admission_no']);
+                    if ($admission_no_exists) {
+                        $response['result'] = $this->student_model->update($result[$i]);
+                        $updated++;
+                    }
+                }
+            }
+        }
+
+        $response['total'] = $totalCount;
+        $response['updated'] =  $updated;
+
+        echo json_encode(array('status' => true, 'data' => $response));
+    }
     // sync update progress
     public function import_progress()
     {

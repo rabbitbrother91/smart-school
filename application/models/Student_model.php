@@ -1048,6 +1048,13 @@ class Student_model extends MY_Model
         }
     }
 
+    public function update($data)
+    {
+        if (isset($data['admission_no'])) {
+            $this->db->where("admission_no", $data['admission_no']);
+            $this->db->update('students', $data);
+        }
+    }
     public function add_student_sibling($data_sibling)
     {
         $this->db->trans_start(); # Starting Transaction
