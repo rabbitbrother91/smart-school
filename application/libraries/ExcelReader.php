@@ -75,23 +75,26 @@ class ExcelReader
 
                     $no = isset($rowData['A']) ? $rowData['A'] : '';
 
-                    // if (strpos($no, ": ???????") === true) {
+                    // if (strpos($no, ": المستوى") === true) {
                     //     $class_name = isset($rowData['B']) ? $rowData['B'] : '';
                     // }
 
                     if (is_numeric($no)) {
-                        $dataRow = array(
-                            'admission_no' => isset($rowData['B']) ? $rowData['B'] : '',
-                            'firstname' => isset($rowData['C']) ? $rowData['C'] : '',
-                            'lastname' => isset($rowData['D']) ? $rowData['D'] : '',
-                            'gender' => isset($rowData['E']) ? $rowData['E'] : '',
-                            'dob' => isset($rowData['F']) ? $rowData['F'] : '',
-                            'city' => isset($rowData['G']) ? $rowData['G'] : '',
-                            'class_id' => $class_id,
-                            'section_id' => $section_id
-                            // Add more fields as needed
-                        );
-
+                        $adimssion_no = isset($rowData['B']) ? $rowData['B'] : '';
+                        if ($adimssion_no !== '') {
+                            $dataRow = array(
+                                'admission_no' => $adimssion_no,
+                                'firstname' => isset($rowData['C']) ? $rowData['C'] : '',
+                                'lastname' => isset($rowData['D']) ? $rowData['D'] : '',
+                                'gender' => isset($rowData['E']) ? $rowData['E'] : '',
+                                'dob' => isset($rowData['F']) ? $rowData['F'] : '',
+                                'city' => isset($rowData['G']) ? $rowData['G'] : '',
+                                'email' => $adimssion_no . '@taalim.ma',
+                                'class_id' => $class_id,
+                                'section_id' => $section_id
+                                // Add more fields as needed
+                            );
+                        }
                         $data[] = $dataRow;
                     }
                 }

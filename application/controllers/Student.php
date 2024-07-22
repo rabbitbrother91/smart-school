@@ -1033,7 +1033,7 @@ class Student extends Admin_Controller
 
         $category = $this->category_model->get();
 
-        $fields = array('admission_no', 'roll_no', 'firstname', 'middlename', 'lastname', 'gender', 'dob', 'category_id', 'religion', 'cast', 'mobileno', 'email', 'admission_date', 'blood_group', 'school_house_id', 'height', 'weight', 'measurement_date', 'father_name', 'father_phone', 'father_occupation', 'mother_name', 'mother_phone', 'mother_occupation', 'guardian_is', 'guardian_name', 'guardian_relation', 'guardian_email', 'guardian_phone', 'guardian_occupation', 'guardian_address', 'current_address', 'permanent_address', 'bank_account_no', 'bank_name', 'ifsc_code', 'adhar_no', 'samagra_id', 'rte', 'previous_school', 'note');
+        $fields = array('admission_no', 'roll_no', 'firstname', 'middlename', 'lastname', 'gender', 'dob', 'category_id', 'religion', 'cast', 'mobileno', 'email', 'admission_date', 'blood_group', 'school_house_id', 'height', 'weight', 'measurement_date', 'father_name', 'father_phone', 'father_occupation', 'mother_name', 'mother_phone', 'mother_occupation', 'guardian_is', 'guardian_name', 'guardian_relation', 'guardian_email', 'guardian_phone', 'guardian_occupation', 'guardian_address', 'current_address', 'permanent_address', 'bank_account_no', 'bank_name', 'ifsc_code', 'adhar_no', 'samagra_id', 'rte', 'previous_school', 'note', 'measurement_date', 'email');
 
         $data["fields"] = $fields;
         $data['categorylist'] = $category;
@@ -1063,10 +1063,7 @@ class Student extends Admin_Controller
                         session_write_close();
                         session_start();
                         $student_data[$i] = array();
-                        $n = 0;
                         foreach ($result[$i] as $key => $value) {
-
-                            $student_data[$i][$fields[$n]] = null;
 
                             $student_data[$i]['is_active'] = 'yes';
 
@@ -1093,8 +1090,7 @@ class Student extends Admin_Controller
                             $student_data[$i]['admission_no'] = $result[$i]['admission_no'];
                             $student_data[$i]['gender'] = $result[$i]['gender'];
                             $student_data[$i]['city'] = $result[$i]['city'];
-
-                            $n++;
+                            $student_data[$i]['email'] = $result[$i]['email'];
                         }
 
                         $roll_no = $student_data[$i]["roll_no"];
@@ -1145,7 +1141,7 @@ class Student extends Admin_Controller
                             );
 
                             // increase added student count
-                            if ($result[$i]['gender'] === '???')
+                            if ($result[$i]['gender'] === 'ذكر')
                                 $male_added++;
                             else $female_added++;
 
@@ -1194,7 +1190,7 @@ class Student extends Admin_Controller
 
                             $rowcount++;
                             $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">' . $this->lang->line('total') . ' ' . count($result) . $this->lang->line('records_found_in_csv_file_total') . $rowcount . ' ' . $this->lang->line('records_imported_successfully') . '</div>');
-//                            log_message('error', 'new data' . $i . ':' . json_encode($data_new));
+
 
                         } else {
                             $exist_count++;
